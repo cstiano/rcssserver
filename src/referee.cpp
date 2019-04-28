@@ -800,7 +800,7 @@ Referee::clearPlayersFromBall( const Side side )
                         new_pos += M_stadium.ball().pos();
                     }
 
-                    //(*it)->place( new_pos );
+                    (*it)->place( new_pos );
                     exist = true;
                 }
             }
@@ -3291,7 +3291,7 @@ HFORef::resetField()
             y = ball_y + .1 * pitch_length * (drand(0,1,M_rng) + offset.second);
             x = std::min(std::max(x, -.1), half_pitch_length);
             y = std::min(std::max(y, -.4 * pitch_width), .4 * pitch_width);
-            (*p)->place( PVector( x, y ) );
+            //(*p)->place( PVector( x, y ) );
             offense_pos++;
         }
         else if ( (*p)->side() == RIGHT )
@@ -3303,7 +3303,7 @@ HFORef::resetField()
                 x = drand(.4 * pitch_length, .5 * pitch_length, M_rng);
                 y = drand(-.4 * pitch_width, .4 * pitch_width, M_rng);
             }
-            (*p)->place( PVector( x, y ) );
+            //(*p)->place( PVector( x, y ) );
         }
     }
     M_stadium.recoveryPlayers();
