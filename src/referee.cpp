@@ -800,7 +800,7 @@ Referee::clearPlayersFromBall( const Side side )
                         new_pos += M_stadium.ball().pos();
                     }
 
-                    (*it)->place( new_pos );
+                    //(*it)->place( new_pos );
                     exist = true;
                 }
             }
