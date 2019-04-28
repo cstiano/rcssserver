@@ -3272,42 +3272,99 @@ HFORef::resetField()
         }
     }
     int offense_pos = 0;
+    //------------------------------
+    static const RArea p_l( PVector( - ServerParam::PITCH_LENGTH/2
+                                     + ServerParam::PENALTY_AREA_LENGTH/2.0,
+                                     0.0 ),
+                            PVector( ServerParam::PENALTY_AREA_LENGTH,
+                                     ServerParam::PENALTY_AREA_WIDTH ) );
+    static const RArea p_r( PVector( + ServerParam::PITCH_LENGTH/2
+                                     - ServerParam::PENALTY_AREA_LENGTH/2.0,
+                                     0.0 ),
+                            PVector( ServerParam::PENALTY_AREA_LENGTH,
+                                     ServerParam::PENALTY_AREA_WIDTH ) );
+    const RArea * p_area;
+
+    int oppside;
+
+    const Stadium::PlayerCont::iterator end = M_stadium.players().end();
     for ( Stadium::PlayerCont::iterator p = M_stadium.players().begin();
-          p != end;
-          ++p )
-    {
-        if ( ! (*p)->isEnabled() ) continue;
-        double x, y;
-        if ( (*p)->side() == LEFT )
+            p != end;
+            ++p )
         {
-            if ( offense_pos_on_ball == offense_pos )
+            if ( ! (*p)->isEnabled() ) continue;
+            if ( (*p)->side() == LEFT )
             {
-                (*p)->place( PVector( ball_x - .1, ball_y ) );
-                offense_pos++;
-                continue;
+                oppside = RIGHT;
+                p_area = &p_l;
             }
-            std::pair<int,int> offset = M_offsets[offense_pos];
-            x = ball_x + .1 * pitch_length * (drand(0,1,M_rng) + offset.first);
-            y = ball_y + .1 * pitch_length * (drand(0,1,M_rng) + offset.second);
-            x = std::min(std::max(x, -.1), half_pitch_length);
-            y = std::min(std::max(y, -.4 * pitch_width), .4 * pitch_width);
-            //(*p)->place( PVector( x, y ) );
-            M_stadium.placePlayersInField();
-            offense_pos++;
-        }
-        else if ( (*p)->side() == RIGHT )
-        {
-            if ( (*p)->isGoalie() ) {
-                x = .5 * pitch_length;
-                y = 0;
-            } else {
-                x = drand(.4 * pitch_length, .5 * pitch_length, M_rng);
-                y = drand(-.4 * pitch_width, .4 * pitch_width, M_rng);
+            else
+            {
+                oppside = LEFT;
+                p_area = &p_r;
             }
-            //(*p)->place( PVector( x, y ) );
-            M_stadium.placePlayersInField();
+
+            if ( (*p)->side() == oppside )
+            {
+                const double size = (*p)->size();
+                RArea expand_area( p_area->left() - size,
+                                p_area->right() + size,
+                                p_area->top() - size,
+                                p_area->bottom() + size );
+
+                if ( expand_area.inArea( (*p)->pos() ) )
+                {
+                    PVector new_pos = expand_area.nearestEdge( (*p)->pos() );
+                    if ( new_pos.x * oppside >= ServerParam::PITCH_LENGTH/2 )
+                    {
+                        new_pos.x
+                            = ( ServerParam::PITCH_LENGTH/2
+                                - ServerParam::PENALTY_AREA_LENGTH
+                                - size )
+                            * oppside;
+                    }
+
+                    (*p)->moveTo( new_pos );
+                }
+            }
         }
-    }
+    //------------------------------
+    // for ( Stadium::PlayerCont::iterator p = M_stadium.players().begin();
+    //       p != end;
+    //       ++p )
+    // {
+    //     if ( ! (*p)->isEnabled() ) continue;
+    //     double x, y;
+    //     if ( (*p)->side() == LEFT )
+    //     {
+    //         if ( offense_pos_on_ball == offense_pos )
+    //         {
+    //             (*p)->place( PVector( ball_x - .1, ball_y ) );
+    //             offense_pos++;
+    //             continue;
+    //         }
+    //         std::pair<int,int> offset = M_offsets[offense_pos];
+    //         x = ball_x + .1 * pitch_length * (drand(0,1,M_rng) + offset.first);
+    //         y = ball_y + .1 * pitch_length * (drand(0,1,M_rng) + offset.second);
+    //         x = std::min(std::max(x, -.1), half_pitch_length);
+    //         y = std::min(std::max(y, -.4 * pitch_width), .4 * pitch_width);
+    //         //(*p)->place( PVector( x, y ) );
+    //         M_stadium.placePlayersInField();
+    //         offense_pos++;
+    //     }
+    //     else if ( (*p)->side() == RIGHT )
+    //     {
+    //         if ( (*p)->isGoalie() ) {
+    //             x = .5 * pitch_length;
+    //             y = 0;
+    //         } else {
+    //             x = drand(.4 * pitch_length, .5 * pitch_length, M_rng);
+    //             y = drand(-.4 * pitch_width, .4 * pitch_width, M_rng);
+    //         }
+    //         //(*p)->place( PVector( x, y ) );
+    //         M_stadium.placePlayersInField();
+    //     }
+    // }
     M_stadium.recoveryPlayers();
     M_take_time = 0;
     M_untouched_time = 0;
