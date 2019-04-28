@@ -3292,6 +3292,7 @@ HFORef::resetField()
             x = std::min(std::max(x, -.1), half_pitch_length);
             y = std::min(std::max(y, -.4 * pitch_width), .4 * pitch_width);
             //(*p)->place( PVector( x, y ) );
+            M_stadium.placePlayersInField();
             offense_pos++;
         }
         else if ( (*p)->side() == RIGHT )
@@ -3304,6 +3305,7 @@ HFORef::resetField()
                 y = drand(-.4 * pitch_width, .4 * pitch_width, M_rng);
             }
             //(*p)->place( PVector( x, y ) );
+            M_stadium.placePlayersInField();
         }
     }
     M_stadium.recoveryPlayers();
