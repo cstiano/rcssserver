@@ -3228,21 +3228,7 @@ HFORef::resetField()
     double pitch_length = ServerParam::instance().PITCH_LENGTH;
     double half_pitch_length = 0.5 * pitch_length;
     double pitch_width = ServerParam::instance().PITCH_WIDTH;
-    double min_ball_x =
-        std::max(std::min(ServerParam::instance().hfoMinBallX(), 1.), 0.);
-    double max_ball_x =
-        std::max(std::min(ServerParam::instance().hfoMaxBallX(), 1.), 0.);
-    max_ball_x = std::max(max_ball_x, min_ball_x);
-    double ball_x = drand(min_ball_x * half_pitch_length,
-                          max_ball_x * half_pitch_length, M_rng);
-    double min_ball_y =
-        std::max(std::min(ServerParam::instance().hfoMinBallY(), 1.), -1.);
-    double max_ball_y =
-        std::max(std::min(ServerParam::instance().hfoMaxBallY(), 1.), -1.);
-    max_ball_y = std::max(max_ball_y, min_ball_y);
-    double ball_y = drand(min_ball_y / 2.0 * pitch_width,
-                          max_ball_y / 2.0 * pitch_width, M_rng);
-    M_stadium.placeBall( NEUTRAL, PVector(ball_x, ball_y) );
+    M_stadium.placeBall( NEUTRAL, PVector(0, 0) );
     M_prev_ball_pos = M_stadium.ball().pos();
     boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
         gen(M_rng, boost::uniform_int<>());
@@ -3273,61 +3259,55 @@ HFORef::resetField()
     }
     int offense_pos = 0;
     //------------------------------
-    static const RArea p_l( PVector( - ServerParam::PITCH_LENGTH/2
-                                     + ServerParam::PENALTY_AREA_LENGTH/2.0,
-                                     0.0 ),
-                            PVector( ServerParam::PENALTY_AREA_LENGTH,
-                                     ServerParam::PENALTY_AREA_WIDTH ) );
-    static const RArea p_r( PVector( + ServerParam::PITCH_LENGTH/2
-                                     - ServerParam::PENALTY_AREA_LENGTH/2.0,
-                                     0.0 ),
-                            PVector( ServerParam::PENALTY_AREA_LENGTH,
-                                     ServerParam::PENALTY_AREA_WIDTH ) );
-    const RArea * p_area;
+    static const RArea p_l(PVector(-ServerParam::PITCH_LENGTH / 2 + ServerParam::PENALTY_AREA_LENGTH / 2.0,
+                                   0.0),
+                           PVector(ServerParam::PENALTY_AREA_LENGTH,
+                                   ServerParam::PENALTY_AREA_WIDTH));
+    static const RArea p_r(PVector(+ServerParam::PITCH_LENGTH / 2 - ServerParam::PENALTY_AREA_LENGTH / 2.0,
+                                   0.0),
+                           PVector(ServerParam::PENALTY_AREA_LENGTH,
+                                   ServerParam::PENALTY_AREA_WIDTH));
+    const RArea *p_area;
 
-    int oppside;
+    int oppsideimp = 2;
+    int oppsidepar = 2;
 
-    const Stadium::PlayerCont::iterator end = M_stadium.players().end();
-    for ( Stadium::PlayerCont::iterator p = M_stadium.players().begin();
-            p != end;
-            ++p )
+    for (Stadium::PlayerCont::iterator p = M_stadium.players().begin();
+         p != end;
+         ++p)
+    {
+        if (!(*p)->isEnabled())
+            continue;
+        double x, y;
+        if ((*p)->side() == LEFT)
         {
-            if ( ! (*p)->isEnabled() ) continue;
-            if ( (*p)->side() == LEFT )
+            if ((*p)->unum() % 2 == 0)
             {
-                oppside = RIGHT;
-                p_area = &p_l;
+                y = oppsidepar * -2;
+                oppsidepar += 4;
             }
             else
             {
-                oppside = LEFT;
-                p_area = &p_r;
+                y = oppsideimp * 2;
+                oppsideimp += 4;
             }
-
-            if ( (*p)->side() == oppside )
-            {
-                const double size = (*p)->size();
-                RArea expand_area( p_area->left() - size,
-                                p_area->right() + size,
-                                p_area->top() - size,
-                                p_area->bottom() + size );
-
-                if ( expand_area.inArea( (*p)->pos() ) )
-                {
-                    PVector new_pos = expand_area.nearestEdge( (*p)->pos() );
-                    if ( new_pos.x * oppside >= ServerParam::PITCH_LENGTH/2 )
-                    {
-                        new_pos.x
-                            = ( ServerParam::PITCH_LENGTH/2
-                                - ServerParam::PENALTY_AREA_LENGTH
-                                - size )
-                            * oppside;
-                    }
-
-                    (*p)->moveTo( new_pos );
-                }
-            }
+            (*p)->place(PVector(0, y));
         }
+        else if ((*p)->side() == RIGHT)
+        {
+            if ((*p)->isGoalie())
+            {
+                x = .5 * pitch_length;
+                y = 0;
+            }
+            else
+            {
+                x = .35 * pitch_length;
+                y = 0;
+            }
+            (*p)->place( PVector( x, y ) );
+        }
+    }
     //------------------------------
     // for ( Stadium::PlayerCont::iterator p = M_stadium.players().begin();
     //       p != end;
