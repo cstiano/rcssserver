@@ -3228,7 +3228,7 @@ HFORef::resetField()
     double pitch_length = ServerParam::instance().PITCH_LENGTH;
     double half_pitch_length = 0.5 * pitch_length;
     double pitch_width = ServerParam::instance().PITCH_WIDTH;
-    M_stadium.placeBall( NEUTRAL, PVector(0, 0) );
+    M_stadium.placeBall( NEUTRAL, PVector(5, 0) );
     M_prev_ball_pos = M_stadium.ball().pos();
     boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
         gen(M_rng, boost::uniform_int<>());
@@ -3291,7 +3291,7 @@ HFORef::resetField()
                 y = oppsideimp * 2;
                 oppsideimp += 4;
             }
-            (*p)->place(PVector(0, y));
+            (*p)->place(PVector(1, y));
         }
         else if ((*p)->side() == RIGHT)
         {
