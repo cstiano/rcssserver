@@ -3281,17 +3281,17 @@ HFORef::resetField()
         double x, y;
         if ((*p)->side() == LEFT)
         {
-            if ((*p)->unum() % 2 == 0)
-            {
-                y = oppsidepar * -2;
-                oppsidepar += 4;
-            }
-            else
-            {
-                y = oppsideimp * 2;
-                oppsideimp += 4;
-            }
-            (*p)->place(PVector(1, y));
+            // if ((*p)->unum() % 2 == 0)
+            // {
+            //     y = oppsidepar * -2;
+            //     oppsidepar += 4;
+            // }
+            // else
+            // {
+            //     y = oppsideimp * 2;
+            //     oppsideimp += 4;
+            // }
+            (*p)->place(PVector(1, 0));
         }
         else if ((*p)->side() == RIGHT)
         {
