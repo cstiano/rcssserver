@@ -3228,7 +3228,7 @@ HFORef::resetField()
     double pitch_length = ServerParam::instance().PITCH_LENGTH;
     double half_pitch_length = 0.5 * pitch_length;
     double pitch_width = ServerParam::instance().PITCH_WIDTH;
-    M_stadium.placeBall( LEFT, PVector(-35, 0) );
+    M_stadium.placeBall( LEFT, PVector(-40, 0) );
     M_prev_ball_pos = M_stadium.ball().pos();
     boost::variate_generator<boost::mt19937&, boost::uniform_int<> >
         gen(M_rng, boost::uniform_int<>());
@@ -3241,7 +3241,10 @@ HFORef::resetField()
         double x, y;
         if ( (*p)->side() == LEFT )
         {
-            (*p)->place(PVector( -40, 0 ));
+            if ((*p)->unum() < 9)
+                (*p)->place(PVector( -45, 0 ));
+            else
+                (*p)->place(PVector( -30, 0 ));      
         }
         else if ( (*p)->side() == RIGHT )
         {
@@ -3249,7 +3252,12 @@ HFORef::resetField()
                 x = .5 * pitch_length;
                 y = 0;
             } else {
-                x = 25;
+                if ((*p)->unum() < 6)
+                    x = 25;
+                else if ((*p)->unum() > 5 && (*p)->unum() < 9)
+                    x = 10;
+                else
+                    x = -5;
                 y = drand(-.4 * pitch_width, .4 * pitch_width, M_rng);
             }
             (*p)->place( PVector( x, y ) );
