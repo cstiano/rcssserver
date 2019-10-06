@@ -3184,7 +3184,7 @@ HFORef::playModeChange( PlayMode pm )
 bool
 HFORef::inHFOArea(const PVector& pos)
 {
-    return ( pos.x >= 0 &&
+    return ( pos.x >= -50 &&
              pos.x <= 0.5 * ServerParam::instance().PITCH_LENGTH &&
              std::fabs( pos.y ) <= 0.5 * ServerParam::instance().PITCH_WIDTH);
 }
