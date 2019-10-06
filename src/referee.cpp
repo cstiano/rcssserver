@@ -3249,7 +3249,7 @@ HFORef::resetField()
                 x = .5 * pitch_length;
                 y = 0;
             } else {
-                x = drand(.4 * pitch_length, .5 * pitch_length, M_rng);
+                x = -25;
                 y = drand(-.4 * pitch_width, .4 * pitch_width, M_rng);
             }
             (*p)->place( PVector( x, y ) );
