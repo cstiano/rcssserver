@@ -3244,7 +3244,7 @@ HFORef::resetField()
             if ((*p)->unum() < 9)
                 (*p)->place(PVector( -45, 0 ));
             else
-                (*p)->place(PVector( -30, 0 ));      
+                (*p)->place(PVector( -5, 0 ));      
         }
         else if ( (*p)->side() == RIGHT )
         {
