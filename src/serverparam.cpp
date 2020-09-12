@@ -861,6 +861,8 @@ ServerParam::addParams()
     addParam( "hfo_min_ball_pos_y", M_hfo_min_ball_pos_y, "", 9 );
     addParam( "hfo_max_ball_pos_y", M_hfo_max_ball_pos_y, "", 9 );
 
+    addParam( "training_test_case", M_training_test_case, "", 9 );
+
     addParam( "nr_normal_halfs",
               rcss::conf::makeSetter( this, &ServerParam::setNrNormalHalfs ),
               rcss::conf::makeGetter( M_nr_normal_halfs ),
@@ -1217,6 +1219,8 @@ ServerParam::setDefaults()
     M_hfo_max_trials = -1;
     M_hfo_max_frames = -1;
     M_hfo_offense_on_ball = false;
+
+    M_training_test_case = -1;
 
     M_corner_kick_margin = CORNER_KICK_MARGIN;
     M_offside_active_area_size = OFFSIDE_ACTIVE_AREA_SIZE;

@@ -3243,8 +3243,13 @@ HFORef::resetField()
         {
             if ((*p)->unum() < 9)
                 (*p)->place(PVector( -45, 0 ));
-            else
-                (*p)->place(PVector( -5, 0 ));      
+            else {
+                if (ServerParam::instance().trainingTestCase() == -1) {
+                    (*p)->place(PVector( -5, 0 ));
+                } else {
+                    (*p)->place(PVector( 0, 0 ));
+                }
+            }      
         }
         else if ( (*p)->side() == RIGHT )
         {
