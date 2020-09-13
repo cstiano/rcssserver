@@ -695,6 +695,8 @@ private:
     int M_episode_over_time;
     boost::mt19937 M_rng;
     std::vector<std::pair<int,int> > M_offsets;
+    double M_current_x_referee_pos;
+    double M_current_y_referee_pos;
 
 public:
     HFORef( Stadium & stadium );
@@ -717,6 +719,10 @@ private:
     void logEpisode( const char *endCond );
 
     void resetField();
+
+    void setBallPosWithEnvType();
+
+    PVector getPositionWithEnvType();
 };
 
 /*--------------------------------------------------------*/

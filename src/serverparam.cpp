@@ -361,6 +361,14 @@ const double ServerParam::RED_CARD_PROBABILITY = 0.0;
 const double ServerParam::LONG_KICK_POWER_FACTOR = 2.0;
 const int ServerParam::LONG_KICK_DELAY = 2;
 
+// Environment Setup - Reinforcement Learning purpose
+const int ServerParam::DEFAULT_ENV = 0;
+const int ServerParam::DEFAULT_DYNAMIC_ENV = 1;
+const int ServerParam::GO_TO_BALL_RANDOM_POS_ENV = 2;
+const int ServerParam::ALL_RANDOM_ENV = 3;
+const int ServerParam::START_WITH_BALL_ENV = 4;
+const int ServerParam::START_WITH_BALL_RANDOM_ENV = 5;
+const int ServerParam::PENALTY_ENV = 6;
 
 ServerParam &
 ServerParam::instance()
@@ -861,8 +869,6 @@ ServerParam::addParams()
     addParam( "hfo_min_ball_pos_y", M_hfo_min_ball_pos_y, "", 9 );
     addParam( "hfo_max_ball_pos_y", M_hfo_max_ball_pos_y, "", 9 );
 
-    addParam( "training_test_case", M_training_test_case, "", 9 );
-
     addParam( "nr_normal_halfs",
               rcss::conf::makeSetter( this, &ServerParam::setNrNormalHalfs ),
               rcss::conf::makeGetter( M_nr_normal_halfs ),
@@ -942,6 +948,9 @@ ServerParam::addParams()
     addParam( "random_seed", M_random_seed, "", 15 );
     // addParam( "long_kick_power_factor", M_long_kick_power_factor, "", 999 );
     // addParam( "long_kick_delay", M_long_kick_delay, "", 999 );
+
+    // Environment Setup - Reinforcement Learning purpose
+    addParam( "environment_type", M_environment_type, "", 9 );
 }
 
 void
@@ -1220,7 +1229,7 @@ ServerParam::setDefaults()
     M_hfo_max_frames = -1;
     M_hfo_offense_on_ball = false;
 
-    M_training_test_case = -1;
+    M_environment_case = -1;
 
     M_corner_kick_margin = CORNER_KICK_MARGIN;
     M_offside_active_area_size = OFFSIDE_ACTIVE_AREA_SIZE;

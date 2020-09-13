@@ -346,6 +346,15 @@ private:
     static const double LONG_KICK_POWER_FACTOR;
     static const int LONG_KICK_DELAY;
 
+    // Environment Setup - Reinforcement Learning purpose
+    static const int DEFAULT_ENV;
+    static const int DEFAULT_DYNAMIC_ENV;
+    static const int GO_TO_BALL_RANDOM_POS_ENV;
+    static const int ALL_RANDOM_ENV;
+    static const int START_WITH_BALL_ENV;
+    static const int START_WITH_BALL_RANDOM_ENV;
+    static const int PENALTY_ENV;
+
     double M_goal_width; /* goal width */
     double M_inertia_moment; /* intertia moment for turn */
     double M_player_size; /* player size */
@@ -429,7 +438,6 @@ private:
     double M_hfo_max_ball_pos_x; /* Governs the initialization x-position of ball */
     double M_hfo_min_ball_pos_y; /* Governs the initialization y-position of ball */
     double M_hfo_max_ball_pos_y; /* Governs the initialization y-position of ball */
-    int M_training_test_case;
     int M_port; /* port number */
     int M_coach_port; /* coach port number */
     int M_olcoach_port; /* online coach port number */
@@ -631,6 +639,8 @@ private:
     double M_long_kick_power_factor;
     int M_long_kick_delay;
 
+    int M_environment_type; /* Environment type defines how the envirnomnet is going to reset for training purpose */
+
 private:
 
     // setters & getters
@@ -777,8 +787,6 @@ public:
     double hfoMaxBallX() const { return M_hfo_max_ball_pos_x; }
     double hfoMinBallY() const { return M_hfo_min_ball_pos_y; }
     double hfoMaxBallY() const { return M_hfo_max_ball_pos_y; }
-
-    int trainingTestCase() const { return M_training_test_case; }
 
     double cornerKickMargin() const { return M_corner_kick_margin; }
     double offsideActiveArea() const { return M_offside_active_area_size; }
@@ -993,6 +1001,7 @@ public:
     double longKickPowerFactor() const { return M_long_kick_power_factor; }
     int longKickDelay() const { return M_long_kick_delay; }
 
+    int environmentType() const { return M_environment_type; }
 };
 
 #endif
