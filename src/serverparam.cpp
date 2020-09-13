@@ -1229,7 +1229,7 @@ ServerParam::setDefaults()
     M_hfo_max_frames = -1;
     M_hfo_offense_on_ball = false;
 
-    M_environment_case = -1;
+    M_environment_type = 0;
 
     M_corner_kick_margin = CORNER_KICK_MARGIN;
     M_offside_active_area_size = OFFSIDE_ACTIVE_AREA_SIZE;
