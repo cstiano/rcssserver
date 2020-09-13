@@ -141,6 +141,15 @@ public:
 
     static const double CORNER_KICK_MARGIN;
 
+    // Environment Setup - Reinforcement Learning purpose
+    static const int DEFAULT_ENV;
+    static const int DEFAULT_DYNAMIC_ENV;
+    static const int GO_TO_BALL_RANDOM_POS_ENV;
+    static const int ALL_RANDOM_ENV;
+    static const int START_WITH_BALL_ENV;
+    static const int START_WITH_BALL_RANDOM_ENV;
+    static const int PENALTY_ENV;
+
 private:
     static const double KEEPAWAY_LENGTH;
     static const double KEEPAWAY_WIDTH;
@@ -345,15 +354,6 @@ private:
     // XXX
     static const double LONG_KICK_POWER_FACTOR;
     static const int LONG_KICK_DELAY;
-
-    // Environment Setup - Reinforcement Learning purpose
-    static const int DEFAULT_ENV;
-    static const int DEFAULT_DYNAMIC_ENV;
-    static const int GO_TO_BALL_RANDOM_POS_ENV;
-    static const int ALL_RANDOM_ENV;
-    static const int START_WITH_BALL_ENV;
-    static const int START_WITH_BALL_RANDOM_ENV;
-    static const int PENALTY_ENV;
 
     double M_goal_width; /* goal width */
     double M_inertia_moment; /* intertia moment for turn */
