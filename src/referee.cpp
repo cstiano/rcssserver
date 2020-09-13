@@ -3279,8 +3279,8 @@ void
 HFORef::setBallPosWithEnvType()
 {
     if ( ServerParam::instance().environmentType() == ServerParam::instance().DEFAULT_ENV
-        && ServerParam::instance().environmentType() == ServerParam::instance().DEFAULT_DYNAMIC_ENV
-        && ServerParam::instance().environmentType() == ServerParam::instance().GO_TO_BALL_RANDOM_POS_ENV ) {
+        || ServerParam::instance().environmentType() == ServerParam::instance().DEFAULT_DYNAMIC_ENV
+        || ServerParam::instance().environmentType() == ServerParam::instance().GO_TO_BALL_RANDOM_POS_ENV ) {
         M_stadium.placeBall( LEFT, PVector( 0.0, 0.0 ) );
     } 
     else if ( ServerParam::instance().environmentType() == ServerParam::instance().START_WITH_BALL_ENV ) {
@@ -3348,8 +3348,8 @@ HFORef::getPositionWithEnvType()
         return PVector( M_current_x_referee_pos, M_current_y_referee_pos ); 
     }
     else if ( ServerParam::instance().environmentType() == ServerParam::instance().START_WITH_BALL_ENV
-                && ServerParam::instance().environmentType() == ServerParam::instance().START_WITH_BALL_RANDOM_ENV
-                && ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_ENV )
+                || ServerParam::instance().environmentType() == ServerParam::instance().START_WITH_BALL_RANDOM_ENV
+                || ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_ENV )
     {
         return PVector( M_current_x_referee_pos, M_current_y_referee_pos );
     }
