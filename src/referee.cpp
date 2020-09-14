@@ -3004,6 +3004,7 @@ HFORef::HFORef( Stadium & stadium )
       M_episode_over_time( -1 ),
       M_current_x_referee_pos( 0.0 ),
       M_current_y_referee_pos( 0.0 ),
+      M_absolute_max_steps ( 0 ),
       M_rng()
 {
     // Generate vector of offsets used when resetting the field.
@@ -3072,7 +3073,8 @@ HFORef::analyse()
             M_episode_over_time = M_stadium.time();
         }
         else if ( (param.hfoMaxUntouchedTime() > 0 && M_untouched_time > param.hfoMaxUntouchedTime()) ||
-                  (param.hfoMaxTrialTime() > 0 && M_stadium.time() - M_time > param.hfoMaxTrialTime()) )
+                  (param.hfoMaxTrialTime() > 0 && M_stadium.time() - M_time > param.hfoMaxTrialTime()) || 
+                  (param.environmentMaxSteps() > 0 && M_absolute_max_steps > param.environmentMaxSteps()) )
         {
             logEpisode( ootMsg );
             M_stadium.sendRefereeAudio( ootMsg );
@@ -3081,6 +3083,7 @@ HFORef::analyse()
         else
         {
             M_untouched_time++;
+            M_absolute_max_steps++;
             bool offense_poss = false;
 
             const Stadium::PlayerCont::const_iterator end = M_stadium.players().end();
@@ -3270,6 +3273,7 @@ HFORef::resetField()
     M_stadium.recoveryPlayers();
     M_take_time = 0;
     M_untouched_time = 0;
+    M_absolute_max_steps = 0;
     M_holder_side = 'U';
     M_holder_unum = -1;
     M_time = M_stadium.time();

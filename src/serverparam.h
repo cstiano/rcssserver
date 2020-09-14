@@ -640,7 +640,8 @@ private:
     int M_long_kick_delay;
 
     int M_environment_type; /* Environment type defines how the envirnomnet is going to reset for training purpose */
-
+    int M_environment_max_steps;
+    
 private:
 
     // setters & getters
@@ -1002,6 +1003,7 @@ public:
     int longKickDelay() const { return M_long_kick_delay; }
 
     int environmentType() const { return M_environment_type; }
+    int environmentMaxSteps() const { return M_environment_max_steps; }
 };
 
 #endif

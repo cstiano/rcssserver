@@ -697,6 +697,7 @@ private:
     std::vector<std::pair<int,int> > M_offsets;
     double M_current_x_referee_pos;
     double M_current_y_referee_pos;
+    int M_absolute_max_steps;
 
 public:
     HFORef( Stadium & stadium );

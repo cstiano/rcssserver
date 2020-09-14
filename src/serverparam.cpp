@@ -951,6 +951,7 @@ ServerParam::addParams()
 
     // Environment Setup - Reinforcement Learning purpose
     addParam( "environment_type", M_environment_type, "", 9 );
+    addParam( "environment_max_steps", M_environment_max_steps, "", 9);
 }
 
 void
@@ -1230,6 +1231,7 @@ ServerParam::setDefaults()
     M_hfo_offense_on_ball = false;
 
     M_environment_type = 0;
+    M_environment_max_steps = 6000;
 
     M_corner_kick_margin = CORNER_KICK_MARGIN;
     M_offside_active_area_size = OFFSIDE_ACTIVE_AREA_SIZE;
