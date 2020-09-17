@@ -368,7 +368,10 @@ const int ServerParam::GO_TO_BALL_RANDOM_POS_ENV = 2;
 const int ServerParam::ALL_RANDOM_ENV = 3;
 const int ServerParam::START_WITH_BALL_ENV = 4;
 const int ServerParam::START_WITH_BALL_RANDOM_ENV = 5;
-const int ServerParam::PENALTY_ENV = 6;
+const int ServerParam::START_MEDIUM_BALL_RANDOM_ENV = 6;
+const int ServerParam::PENALTY_ENV = 7;
+const int ServerParam::PENALTY_MEDIUM_ENV = 8;
+const int ServerParam::PENALTY_MEDIUM_STATIC_ENV = 9;
 
 ServerParam &
 ServerParam::instance()
@@ -951,7 +954,7 @@ ServerParam::addParams()
 
     // Environment Setup - Reinforcement Learning purpose
     addParam( "environment_type", M_environment_type, "", 9 );
-    addParam( "environment_max_steps", M_environment_max_steps, "", 9);
+    addParam( "environment_max_steps", M_environment_max_steps, "", 9 );
 }
 
 void
