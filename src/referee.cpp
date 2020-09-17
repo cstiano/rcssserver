@@ -3293,9 +3293,10 @@ HFORef::setBallPosWithEnvType()
         M_stadium.placeBall( LEFT, PVector( (M_current_x_referee_pos + 1.0), M_current_y_referee_pos ) );
     } 
     else if ( ServerParam::instance().environmentType() == ServerParam::instance().START_WITH_BALL_RANDOM_ENV 
-            || ServerParam::instance().environmentType() == ServerParam::instance().START_MEDIUM_BALL_RANDOM_ENV) {
-        M_current_x_referee_pos = drand(0.0, 26.0);
-        M_current_y_referee_pos = drand(-20.0, 20.0);
+            || ServerParam::instance().environmentType() == ServerParam::instance().START_MEDIUM_BALL_RANDOM_ENV
+            || ServerParam::instance().environmentType() == ServerParam::instance().START_HIGH_BALL_RANDOM_ENV) {
+        M_current_x_referee_pos = drand(0.0, 40.0);
+        M_current_y_referee_pos = drand(-24.0, 24.0);
         M_stadium.placeBall( LEFT, PVector( (M_current_x_referee_pos + 1.0), M_current_y_referee_pos ) );
     } 
     else if ( ServerParam::instance().environmentType() == ServerParam::instance().ALL_RANDOM_ENV ) 
@@ -3304,7 +3305,9 @@ HFORef::setBallPosWithEnvType()
     }
     else if ( ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_ENV 
             || ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_MEDIUM_ENV
-            || ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_MEDIUM_STATIC_ENV ) 
+            || ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_HIGH_ENV
+            || ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_MEDIUM_STATIC_ENV
+            || ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_HIGH_STATIC_ENV ) 
     {
         M_current_x_referee_pos = 30.0;
         M_current_y_referee_pos = 0.0;
@@ -3362,17 +3365,34 @@ HFORef::getPositionWithEnvType()
     } 
     else if( ServerParam::instance().environmentType() == ServerParam::instance().START_MEDIUM_BALL_RANDOM_ENV )
     {
+        M_current_x_referee_pos = M_current_x_referee_pos + drand( -6.0, 6.0 );
+        M_current_y_referee_pos = M_current_y_referee_pos + drand( -6.0, 6.0 );
+        return PVector( M_current_x_referee_pos, M_current_y_referee_pos);
+    }
+    else if( ServerParam::instance().environmentType() == ServerParam::instance().START_HIGH_BALL_RANDOM_ENV )
+    {
         M_current_x_referee_pos = M_current_x_referee_pos + drand( -10.0, 10.0 );
         M_current_y_referee_pos = M_current_y_referee_pos + drand( -10.0, 10.0 );
         return PVector( M_current_x_referee_pos, M_current_y_referee_pos);
     }
     else if( ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_MEDIUM_ENV )
     {
+        M_current_x_referee_pos = M_current_x_referee_pos + drand( -6.0, -1.0 );
+        M_current_y_referee_pos = M_current_y_referee_pos + drand( -5.0, 5.0 );
+        return PVector( M_current_x_referee_pos, M_current_y_referee_pos);
+    }
+    else if( ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_HIGH_ENV )
+    {
         M_current_x_referee_pos = M_current_x_referee_pos + drand( -10.0, -1.0 );
-        M_current_y_referee_pos = M_current_y_referee_pos + drand( -10.0, 10.0 );
+        M_current_y_referee_pos = M_current_y_referee_pos + drand( -8.0, 8.0 );
         return PVector( M_current_x_referee_pos, M_current_y_referee_pos);
     }
     else if( ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_MEDIUM_STATIC_ENV )
+    {
+        M_current_x_referee_pos = M_current_x_referee_pos - 6.0;
+        return PVector( M_current_x_referee_pos, M_current_y_referee_pos);
+    }
+    else if( ServerParam::instance().environmentType() == ServerParam::instance().PENALTY_HIGH_STATIC_ENV )
     {
         M_current_x_referee_pos = M_current_x_referee_pos - 10.0;
         return PVector( M_current_x_referee_pos, M_current_y_referee_pos);

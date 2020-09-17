@@ -149,9 +149,12 @@ public:
     static const int START_WITH_BALL_ENV;
     static const int START_WITH_BALL_RANDOM_ENV;
     static const int START_MEDIUM_BALL_RANDOM_ENV;
+    static const int START_HIGH_BALL_RANDOM_ENV;
     static const int PENALTY_ENV;
     static const int PENALTY_MEDIUM_ENV;
+    static const int PENALTY_HIGH_ENV;
     static const int PENALTY_MEDIUM_STATIC_ENV;
+    static const int PENALTY_HIGH_STATIC_ENV;
 
 private:
     static const double KEEPAWAY_LENGTH;
