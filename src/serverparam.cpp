@@ -369,12 +369,12 @@ const int ServerParam::ALL_RANDOM_ENV = 3;
 const int ServerParam::START_WITH_BALL_ENV = 4;
 const int ServerParam::START_WITH_BALL_RANDOM_ENV = 5;
 const int ServerParam::START_MEDIUM_BALL_RANDOM_ENV = 6;
-const int ServerParam::START_HIGH_BALL_RANDOM_ENV = 6;
-const int ServerParam::PENALTY_ENV = 7;
-const int ServerParam::PENALTY_MEDIUM_ENV = 8;
-const int ServerParam::PENALTY_HIGH_ENV = 8;
-const int ServerParam::PENALTY_MEDIUM_STATIC_ENV = 9;
-const int ServerParam::PENALTY_HIGH_STATIC_ENV = 9;
+const int ServerParam::START_HIGH_BALL_RANDOM_ENV = 7;
+const int ServerParam::PENALTY_ENV = 8;
+const int ServerParam::PENALTY_MEDIUM_ENV = 9;
+const int ServerParam::PENALTY_HIGH_ENV = 10;
+const int ServerParam::PENALTY_MEDIUM_STATIC_ENV = 11;
+const int ServerParam::PENALTY_HIGH_STATIC_ENV = 12;
 
 ServerParam &
 ServerParam::instance()
